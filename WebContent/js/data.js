@@ -1,3 +1,4 @@
+//https://stackoverflow.com/questions/42781226/d3-js-v3-to-v4-brush-changes
 (function() {
   var margin = {top: 30, right: 20, bottom: 100, left: 50},
     margin2  = {top: 210, right: 20, bottom: 20, left: 50},
@@ -81,7 +82,7 @@
     .attr('transform', 'translate(110, 0)');
 
   d3.csv('./js/data.csv', type, function(err, data) {
-    var brush = d3.brushX(x2)
+    var brush = d3.brush(x2)
       .on('brush', brushed);
 
     var xRange = d3.extent(data.map(function(d) { return d.date; }));
@@ -260,11 +261,11 @@
       if (range === '5y')
         ext.setFullYear(ext.getFullYear() - 5)
 
-      brush.extent([ext, today]);
+      brush.extent([ext, 0],[today,height2]);
 
       brushed()
 
-      context.select('g.x.brush').call(brush.extent([ext, today]))
+      context.select('g.x.brush').call(brush.extent([ext, 0],[today,height2]))
     }
 
   })// end Data
